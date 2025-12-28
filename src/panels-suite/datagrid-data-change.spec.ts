@@ -1,5 +1,5 @@
 import { test, expect } from '@grafana/plugin-e2e'; 
-import datagridDashboard from '../dashboards/panel-datagrid/datagrid_metric_values.json'; 
+import datagridDashboard from '../dashboards/panel-datagrid-data-change/datagrid_metric_values.json'; 
 
 const DASHBOARD_ID = 'c01bf42b-b783-4447-a304-8554cee1843b';
 const DATAGRID_SELECT_SERIES = 'Datagrid Select series';
@@ -23,19 +23,16 @@ test.use({
     }
 }); 
 
-// TODO enable this test when panel goes live 
-test.describe.skip(
+test.describe(
     'Datagrid data changes',
     {
         tag: ['@panels'],
     },
     () => { 
-        test('Test changing data in the grid', async ({ gotoDashboardPage, selectors, page }) => {
+        test.skip('Test changing data in the grid', async ({ gotoDashboardPage, selectors, page }) => {
             const dashboardPage = await gotoDashboardPage({
                 uid: DASHBOARD_ID,
-                queryParams: new URLSearchParams({
-                    editPanel: '1'
-                }),
+                queryParams: new URLSearchParams({ editPanel: '1' }),
             });
 
             // Check that the data is series A
@@ -51,8 +48,10 @@ test.describe.skip(
             const seriesInput = dashboardPage
                 .getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel(DATAGRID_SELECT_SERIES))
                 .locator('input');
+            await seriesInput.fill('B');
+            await seriesInput.press('Enter');
             await expect(page.getByTestId('glide-cell-2-3')).toHaveText('30');
-            await expect(page.getByTestId('glide-cell-2-4-')).toHaveText('40');
+            await expect(page.getByTestId('glide-cell-2-4')).toHaveText('40');
             await expect(page.getByTestId('glide-cell-2-5')).toHaveText('50');
 
             // Edit datagrid which triggers a snapshot query
@@ -60,6 +59,7 @@ test.describe.skip(
             await expect(page.getByTestId('glide-cell-2-1')).toHaveAttribute('aria-selected', 'true');
             await page.keyboard.type('12');
             await page.keyboard.press('Enter');
+            
             await page.getByTestId('data-testid Confirm Modal Danger Button').click();
             await expect(page.getByTestId('query-editor-row')).toContainText('Snapshot');
         }); 
