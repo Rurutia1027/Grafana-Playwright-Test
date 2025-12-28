@@ -38,10 +38,13 @@ test.describe(
                 selectors.components.PanelEditor.OptionsPane.fieldLabel(MAP_LAYERS_TYPE)
             ); 
             await expect(field).toBeVisible(); 
-            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('markers'); 
-
+            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('markers');             
 
             // Heatmap 
+            const input = field.locator('input'); 
+            await input.fill('Heatmap'); 
+            await input.press('Enter');
+            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('heatmap');
         }); 
     }
 ); 
