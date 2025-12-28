@@ -45,6 +45,70 @@ test.describe(
             await input.fill('Heatmap'); 
             await input.press('Enter');
             await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('heatmap');
+            await expect(
+                dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel(MAP_LAYERS_DATA))
+            ).toBeVisible(); 
+
+            // GeoJSON 
+            await input.fill('GeoJSON'); 
+            await input.press('Enter'); 
+            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('geojson'); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel(MAP_LAYERS_DATA))
+            ).toBeHidden(); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel(MAP_LAYERS_GEOJSON))
+            ).toBeVisible(); 
+
+            // Open Street Map 
+            await input.fill('Open Street Map'); 
+            await input.press('Enter'); 
+            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('osm-standard'); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel(MAP_LAYERS_DATA))
+            ).toBeHidden(); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel(MAP_LAYERS_GEOJSON))
+            ).toBeHidden(); 
+
+            // CARTO basemap 
+            await input.fill('CARTO basemap'); 
+            await input.press('Enter'); 
+            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('carto'); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(
+                    selectors.components.PanelEditor.OptionsPane.fieldLabel('Map layers Show labels')
+                )
+            ).toBeVisible();             
+            await expect(
+                dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel('Map layers Theme'))
+            ).toBeVisible(); 
+
+            // ArcGIS MapServer
+            await input.fill('ArcGIS MapServer'); 
+            await input.press('Enter'); 
+            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('esri-xyz'); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(
+                    selectors.components.PanelEditor.OptionsPane.fieldLabel('Map layers Server instance')
+                )
+            ).toBeVisible(); 
+
+            await expect(
+                dashboardPage.getByGrafanaSelector(
+                    selectors.components.PanelEditor.OptionsPane.fieldLabel(MAP_LAYERS_DATA)
+                )
+            ).toHaveCount(0);
+
+            // XYZ Title layer
+            await input.fill('XYZ Title layer'); 
+            await input.press('Enter'); 
+            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('xyz');  
+
+            // Night / Day (Alpha)
+
+            // Route (Alpha)
+
         }); 
     }
 ); 
