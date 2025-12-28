@@ -3,18 +3,18 @@ import dashlistDashboardJson from '../dashboards/panel-dashlist/dashlist.json';
 
 const PAGE_UNDER_TEST = 'a6801696-cc53-4196-b1f9-2403e3909185/panel-tests-dashlist-variables';
 
-test.beforeAll(async ({ request }) => {
-  await request.post('/api/dashboards/import', {
-    headers: {
-      Authorization:
-        'Basic ' + Buffer.from('admin:admin').toString('base64'),
-    },
-    data: {
-      dashboard: dashlistDashboardJson,
-      overwrite: true,
-    },
-  });
-});
+// test.beforeAll(async ({ request }) => {
+//   await request.post('/api/dashboards/import', {
+//     headers: {
+//       Authorization:
+//         'Basic ' + Buffer.from('admin:admin').toString('base64'),
+//     },
+//     data: {
+//       dashboard: dashlistDashboardJson,
+//       overwrite: true,
+//     },
+//   });
+// });
 
 
 test.describe(

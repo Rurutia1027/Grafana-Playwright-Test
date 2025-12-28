@@ -2,18 +2,18 @@ import { test, expect } from '@grafana/plugin-e2e';
 import panelSandboxDashboard from '../dashboards/PanelSandboxDashboard.json'; 
 const DASHBOARD_ID = 'c46b2460-16b7-42a5-82d1-b07fbf431950';
 
-test.beforeAll(async ({ request }) => {
-  await request.post('/api/dashboards/import', {
-    headers: {
-      Authorization:
-        'Basic ' + Buffer.from('admin:admin').toString('base64'),
-    },
-    data: {
-      dashboard: panelSandboxDashboard,
-      overwrite: true,
-    },
-  });
-});
+// test.beforeAll(async ({ request }) => {
+//   await request.post('/api/dashboards/import', {
+//     headers: {
+//       Authorization:
+//         'Basic ' + Buffer.from('admin:admin').toString('base64'),
+//     },
+//     data: {
+//       dashboard: panelSandboxDashboard,
+//       overwrite: true,
+//     },
+//   });
+// });
 
 test.describe(
   'Panels test: Panel sandbox',

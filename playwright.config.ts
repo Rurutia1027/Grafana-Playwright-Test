@@ -20,6 +20,9 @@ export function withAuth(project: Project): Project {
 
 export const baseConfig: PlaywrightTestConfig<PluginOptions, {}> = {
   fullyParallel: true,
+  /* Global Context init all the dashboards test cases depends on. */
+  globalSetup: require.resolve('./src/global-setup'), 
+
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
