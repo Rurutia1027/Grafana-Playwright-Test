@@ -1,5 +1,4 @@
 import { test, expect } from '@grafana/plugin-e2e';
-import datagridDashboard from '../dashboards/panel-datagrid-data-change/datagrid_metric_values.json'; 
 
 const DASHBOARD_ID = 'c01bf42b-b783-4447-a304-8554cee9627';
 
@@ -8,20 +7,6 @@ test.use({
     enableDatagridEditing: true,
   },
 });
-
-test.beforeAll(async ({ request }) => {
-  await request.post('/api/dashboards/import', {
-    headers: {
-      Authorization:
-        'Basic ' + Buffer.from('admin:admin').toString('base64'),
-    },
-    data: {
-      dashboard: datagridDashboard,
-      overwrite: true,
-    },
-  });
-});
-
 
 // TODO enable this test when panel goes live 
 test.describe.skip(
