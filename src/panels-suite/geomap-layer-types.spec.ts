@@ -106,9 +106,46 @@ test.describe(
             await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('xyz');  
 
             // Night / Day (Alpha)
+            await input.fill('Night / Day'); 
+            await input.press('Enter'); 
+            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('dayNight'); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel(MAP_LAYERS_DATA))
+            ).toBeVisible();             
+            await expect(dashboardPage.getByGrafanaSelector(
+                selectors.components.PanelEditor.OptionsPane.fieldLabel('Map layers Show')
+                )            
+            ).toBeVisible(); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(
+                    selectors.components.PanelEditor.OptionsPane.fieldLabel('Map layers Night region color')
+                )
+            ).toBeVisible(); 
+
+            await expect(
+                dashboardPage.getByGrafanaSelector(
+                    selectors.components.PanelEditor.OptionsPane.fieldLabel('Map layers Display sun')
+                )
+            ).toBeVisible(); 
+
+            await expect(dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.General.content)).toBeVisible();
 
             // Route (Alpha)
-
+            await input.fill('Route'); 
+            await input.press('Enter'); 
+            await expect(page.locator('[data-testid="layer-drag-drop-list"]')).toContainText('route'); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel(MAP_LAYERS_DATA))
+            ).toBeVisible(); 
+            await expect(
+                dashboardPage.getByGrafanaSelector(
+                    selectors.components.PanelEditor.OptionsPane.fieldLabel('Map layers Location Mode')
+                )
+            ).toBeVisible();
+            await expect(
+                dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel('Map layers Style'))
+            ).toBeVisible(); 
+            await expect(dashboardPage.getByGrafanaSelector(selectors.components.PanelEditor.General.content)).toBeVisible(); 
         }); 
     }
 ); 
