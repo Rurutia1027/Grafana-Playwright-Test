@@ -1,6 +1,6 @@
 import { test, expect } from '@grafana/plugin-e2e'; 
-const PAGE_UNDER_TEST = 'a6801696-cc53-4196-b1f9-2403e3909185/panel-tests-dashlist-variables';
 
+const PAGE_UNDER_TEST = 'a6801696-cc53-4196-b1f9-2403e3909185/panel-tests-dashlist-variables';
 test.describe(
     'Panel test: DashList panel',
     {
@@ -8,7 +8,7 @@ test.describe(
     },
     () => { 
         // this is to prevent the fix for https://github.com/grafana/grafana/issues/76800 from regressing
-        test.skip('should pass current variable values correctl when `Include current template variable values` is set', async ({ 
+        test('should pass current variable values correctl when `Include current template variable values` is set', async ({ 
             gotoDashboardPage,
             selectors,
             page, 
